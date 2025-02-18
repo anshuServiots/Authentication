@@ -24,6 +24,6 @@ model User{
 
 model RefreshToken{
   sessionId String @id @default(uuid())
-  userId  String  // Foreign key referencing User
+  userId  String  
   user    User    @relation(fields: [userId], references: [userId])
 }

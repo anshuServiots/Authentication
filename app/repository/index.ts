@@ -25,4 +25,22 @@ async function isUserExist(userEmail : string){
     })
 }
 
-export {isUserExist , createAccount}
+async function createRefreshToken(userId : string){
+    
+    return await prisma.refreshToken.create({
+        data:{
+            userId
+        }
+    })
+}
+
+async function isUserExistForLogin(userId: string) {
+    return await prisma.user.findUnique({
+
+        where: {
+            userId ,
+            isDeleted : false
+        }
+    })
+}
+export {isUserExist , createAccount, createRefreshToken, isUserExistForLogin}

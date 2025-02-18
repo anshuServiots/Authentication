@@ -1,4 +1,5 @@
 import {body} from "express-validator"
+import {Response} from "express"
 
 const validateCreateAccountReq  = [
     body('userName').notEmpty().trim().withMessage('pls send user name') ,
@@ -12,13 +13,28 @@ const validateCreateAccountReq  = [
 ]
 
 const validateUserLoginReq  = [
-   
-    body('userId').notEmpty().trim().withMessage('pls send user Id') ,
-    body('userId').isLength({min : 5 , max : 100}).withMessage('pls send valid id') ,
     
+    body('userEmail').notEmpty().withMessage('pls send user email') ,
+    body('userEmail').isEmail().trim().withMessage('pls send valid email') ,
+   
     body('userPassword').notEmpty().trim().withMessage('pls send user password') ,
     body('userPassword').isLength({min : 5 , max : 30}).withMessage('userName size should be between 5 and 30') ,
 ]
 
-export  {validateCreateAccountReq , validateUserLoginReq }
+function defaultRes(
+    res : Response,
+    status : number,
+    msg : string , 
+    err ? : any,
+    data ? : any
+){
+    return res.status(status).json({
+        status : status ,
+        message : msg,
+        data : data || null ,
+        err : err || null
+    })
+}
+
+export  {validateCreateAccountReq , validateUserLoginReq, defaultRes }
 
