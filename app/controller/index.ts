@@ -1,6 +1,7 @@
 import { Request , Response } from "express";
 import { checkValidation } from "../helper/index"
 import { createAccount, isUserExist} from "../repository/index"
+import { hashPassword , unHashPassword } from "../services";
 
 async function handelCreateAccount(req : Request , res : Response){
 
@@ -27,13 +28,12 @@ async function handelCreateAccount(req : Request , res : Response){
             }
         }
 
-        //console.log('dataSendAfterExicutingQuerry' ,dataSendAfterExicutingQuerry)
         const dataToSend = {
             userId: dataSendAfterExicutingQuerry.userId,
             userName: dataSendAfterExicutingQuerry.userName,
         }
 
-        defaultRes(res, 201, 'account created successfully ✌️✌️✌️✌️', null, dataToSend)
+        defaultRes(res, 201, 'account created successfully ', null, dataToSend)
         // res.status(200).json({res : dataToSend })
 
 
